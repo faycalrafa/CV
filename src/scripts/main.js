@@ -38,7 +38,7 @@ const cvData = {
       position: "Full Stack Developer",
       duration: "2024 - mid 2024",
       description:
-        "1. Maintaining current software systems\n2. Conducting R&D activities\n3. Developing cart parts management software\n4. Continuously improving and optimizing existing applications",
+        "1. Maintaining current software systems <br>2. Conducting R&D activities <br>3. Developing cart parts management software <br>4. Continuously improving and optimizing existing applications",
     },
     {
       company: "InstaClean",
@@ -59,7 +59,7 @@ const cvData = {
       position: "Full Stack Developer",
       duration: "2022 - 2023",
       description:
-        "1. Significantly contributed to mobile application development\n2. Designed customer landing pages\n3. Developed car parts and order management system\n4. Established API connecting supplier's database with Piassa's for real-time data synchronization",
+        "1. Significantly contributed to mobile application development<br>2. Designed customer landing pages<br>3. Developed car parts and order management system<br>4. Established API connecting supplier's database with Piassa's for real-time data synchronization",
     },
     {
       company: "BFLN Technologies",
