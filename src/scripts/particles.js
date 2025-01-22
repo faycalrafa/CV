@@ -46,6 +46,57 @@ for (let i = 0; i < particleCount; i++) {
   particleContainer.appendChild(particle);
 }
 
+// Scroll-based particle generation
+let lastScrollY = window.scrollY;
+let lastParticleTime = 0;
+const scrollThreshold = 100; // pixels
+const viewportHeight = window.innerHeight;
+const maxParticles = 50; // Maximum particles on screen
+const particleCooldown = 20; // Milliseconds between particle generation
+
+window.addEventListener("scroll", () => {
+  const scrollY = window.scrollY;
+  const scrollDelta = scrollY - lastScrollY;
+  const currentParticles =
+    particleContainer.querySelectorAll(".particle").length;
+
+  // Only generate particles when:
+  // 1. Near viewport edges (top or bottom)
+  // 2. Below max particle count
+  // 3. Cooldown period has passed
+  const nearBottom =
+    scrollY + viewportHeight >=
+    document.documentElement.scrollHeight - scrollThreshold;
+  const nearTop = scrollY <= scrollThreshold;
+
+  if (
+    (nearBottom || nearTop) &&
+    currentParticles < maxParticles &&
+    Date.now() - lastParticleTime > particleCooldown
+  ) {
+    const newParticle = createParticle();
+    // Position new particle in the visible area
+    newParticle.style.top = `${
+      scrollY + viewportHeight - Math.random() * 200
+    }px`;
+    particleContainer.appendChild(newParticle);
+    lastParticleTime = Date.now();
+  }
+
+  lastScrollY = scrollY;
+});
+
+// Cleanup particles that move out of view
+setInterval(() => {
+  const particles = particleContainer.querySelectorAll(".particle");
+  particles.forEach((particle) => {
+    const rect = particle.getBoundingClientRect();
+    if (rect.bottom < 0 || rect.top > viewportHeight) {
+      particle.remove();
+    }
+  });
+}, 5000);
+
 // Mouse following light trail
 const trail = document.createElement("div");
 trail.className = "light-trail";
