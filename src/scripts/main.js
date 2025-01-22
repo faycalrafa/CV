@@ -23,7 +23,31 @@ const cvData = {
   about: {
     description:
       "Full Stack Developer with 6+ years of experience in web and mobile development. Passionate about creating efficient and scalable solutions.",
-    skills: ["PHP", "JavaScript", "Flutter", "React", "Node.js"],
+    skills: [
+      "Dart",
+      "JavaScript",
+      "TypeScript",
+      "Node.js",
+      "jQuery",
+      "React.js",
+      "Next.js",
+      "PHP",
+      "Flutter",
+      "NestJS",
+      "Docker",
+      "Redis",
+      "JWT",
+      "SQL/NoSQL",
+      "Nginx",
+      "Traefik",
+      "Tailwind CSS",
+      "Git",
+      "WebSocket",
+      "Linux Bash/shell",
+      "Windows CMD/Powershell",
+      "CI/CD",
+      "Software Architecture & Design",
+    ],
   },
   experience: [
     {
@@ -76,10 +100,12 @@ const cvData = {
   },
   skills: {
     technical: [
-      "Full Stack Development (PHP, JavaScript, HTML, CSS, jQuery, Dart, Flutter, Next.js, React.js, Nest.js, Node.js)",
-      "SQL Databases",
+      "Full Stack Web Development (Mainly Backend)",
+      "mobile Development (Mainly Android)",
+      "desktop Development (Mainly Windows/Linux)",
+      "SQL/NoSQL Databases",
       "Data Analysis",
-      "Software Architecture Design",
+      "Software Architecture & Design",
     ],
   },
   languages: [
