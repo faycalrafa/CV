@@ -16,7 +16,9 @@
     <link rel="stylesheet" href="src/styles/animations.css" />
   </head>
   <body>
-    <div class="gradient-mesh"></div>
+    <div class="gradient-mesh">
+      <div class="radiating-sun"></div>
+    </div>
     <div class="container py-5">
       <div class="text-center">
         <div class="profile-img"></div>
@@ -54,6 +56,32 @@
       <!-- Languages Section -->
       <div id="languages-section" class="section-card">
         <h2><i class="fas fa-language me-2"></i>Languages</h2>
+        <div class="language-container">
+          <div
+            class="language-bar"
+            data-proficiency="10"
+            style="--proficiency-percent: 100%"
+          >
+            <div class="language-fill">English: Highly Proficient</div>
+            <i class="fas fa-language language-icon"></i>
+          </div>
+          <div
+            class="language-bar"
+            data-proficiency="7"
+            style="--proficiency-percent: 70%"
+          >
+            <div class="language-fill">French: Proficient</div>
+            <i class="fas fa-language language-icon"></i>
+          </div>
+          <div
+            class="language-bar"
+            data-proficiency="8"
+            style="--proficiency-percent: 80%"
+          >
+            <div class="language-fill">Arabic: Proficient</div>
+            <i class="fas fa-language language-icon"></i>
+          </div>
+        </div>
       </div>
 
       <button class="download-btn">

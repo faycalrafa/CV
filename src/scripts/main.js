@@ -108,20 +108,6 @@ const cvData = {
       "Software Architecture & Design",
     ],
   },
-  languages: [
-    {
-      name: "French",
-      proficiency: "Proficient",
-    },
-    {
-      name: "Arabic",
-      proficiency: "Proficient",
-    },
-    {
-      name: "English",
-      proficiency: "Highly Proficient",
-    },
-  ],
 };
 
 function loadCVData() {
@@ -217,23 +203,25 @@ function populateSkills(data) {
   `;
 }
 
-function populateLanguages(data) {
-  const languagesSection = document.querySelector("#languages-section");
-  languagesSection.innerHTML = `
-    <h2><i class="fas fa-language me-2"></i>Languages</h2>
-    <ul class="languages-list">
-      ${data.languages
-        .map(
-          (lang) => `
-        <li>${lang.name}: ${lang.proficiency}</li>
-      `
-        )
-        .join("")}
-    </ul>
-  `;
-}
-
 function init() {
+  // Language bars animation
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in-view");
+        } else {
+          entry.target.classList.remove("in-view");
+        }
+      });
+    },
+    { threshold: 0.5 }
+  );
+
+  document.querySelectorAll(".language-bar").forEach((bar) => {
+    observer.observe(bar);
+  });
+
   document.addEventListener("DOMContentLoaded", () => {
     const data = loadCVData();
     populateProfile(data);
@@ -241,7 +229,6 @@ function init() {
     populateExperience(data);
     populateEducation(data);
     populateSkills(data);
-    populateLanguages(data);
 
     document
       .querySelector(".download-btn")
