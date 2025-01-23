@@ -5,7 +5,8 @@
 }
 
 body {
-  background: linear-gradient(177deg, #0a192f, #172a45);
+  /* background: linear-gradient(177deg, #0a192f, #172a45); */
+  background: #000000;
   color: white;
   min-height: 100vh;
 }
@@ -80,7 +81,7 @@ body {
 }
 
 .section-card {
-  background: rgba(10, 25, 47, 0.7);
+  background: rgb(20 22 25 / 65%);
   border-radius: 15px;
   padding: 2rem;
   margin-bottom: 2rem;
@@ -183,6 +184,7 @@ h2 {
   transition: transform 0.3s ease;
   opacity: 0;
   animation: fadeIn 0.5s ease forwards;
+  max-width: 250px;
 }
 
 .language-bar:hover {
