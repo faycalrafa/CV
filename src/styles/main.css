@@ -30,7 +30,6 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 0;
 }
 
 .radiating-sun::before,
@@ -73,6 +72,7 @@ body {
 .contact-info {
   color: var(--primary);
   margin-bottom: 2rem;
+  font-weight: bold;
 }
 .social-links a:hover {
   transform: translateY(-3px);
@@ -80,7 +80,7 @@ body {
 }
 
 .section-card {
-  background: rgba(10, 25, 47, 0.9);
+  background: rgba(10, 25, 47, 0.7);
   border-radius: 15px;
   padding: 2rem;
   margin-bottom: 2rem;
