@@ -230,7 +230,7 @@ function init() {
     populateEducation(data);
     populateSkills(data);
 
-    document.querySelector(".download-btn").addEventListener("click", () => {
+    document.querySelector(".download-cv-btn").addEventListener("click", () => {
       const data = loadCVData();
       generateCV(data);
     });
