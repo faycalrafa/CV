@@ -1,13 +1,13 @@
 // Particle generation and animation
 function getParticleCount() {
   const width = window.innerWidth;
-  if (width < 768) return 10; // Phone
+  if (width < 768) return 30; // Phone
   if (width < 1024) return 60; // Tablet
   return 100; // Desktop
 }
 const particleCount = getParticleCount();
 const minSpeed = 5; // Minimum animation duration
-const maxSpeed = 25; // Maximum animation duration
+const maxSpeed = 20; // Maximum animation duration
 const minSize = 12; // Minimum font size
 const maxSize = 24; // Maximum font size
 
