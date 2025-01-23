@@ -4,19 +4,23 @@ const cvData = {
     socialLinks: [
       {
         icon: "fab fa-linkedin",
-        url: "#",
+        url: "https://www.linkedin.com/in/faycal-rafa-89a366249",
       },
       {
         icon: "fab fa-github",
-        url: "#",
+        url: "https://github.com/faycalrafa",
       },
       {
-        icon: "fab fa-twitter",
-        url: "#",
+        icon: "fab fa-facebook",
+        url: "https://web.facebook.com/faycalrafa96",
       },
       {
         icon: "fas fa-envelope",
         url: "mailto:rafafaycal@gmail.com",
+      },
+      {
+        icon: "fas fa-phone",
+        url: "tel:+213540980238",
       },
     ],
   },

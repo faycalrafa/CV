@@ -1,7 +1,13 @@
 // Particle generation and animation
-const particleCount = 100; // Increased number of particles
+function getParticleCount() {
+  const width = window.innerWidth;
+  if (width < 768) return 10; // Phone
+  if (width < 1024) return 60; // Tablet
+  return 100; // Desktop
+}
+const particleCount = getParticleCount();
 const minSpeed = 5; // Minimum animation duration
-const maxSpeed = 15; // Maximum animation duration
+const maxSpeed = 25; // Maximum animation duration
 const minSize = 12; // Minimum font size
 const maxSize = 24; // Maximum font size
 
@@ -34,7 +40,7 @@ function createParticle() {
   // Change number at random intervals
   setInterval(() => {
     particle.textContent = getRandomNumber();
-  }, Math.random() * 500 + 100);
+  }, Math.random() * 100);
 
   return particle;
 }
@@ -50,7 +56,8 @@ particleContainer.style.pointerEvents = "none";
 document.body.appendChild(particleContainer);
 
 // Create initial particles
-for (let i = 0; i < particleCount; i++) {
+const responsiveCount = getParticleCount();
+for (let i = 0; i < responsiveCount; i++) {
   const particle = createParticle();
   particleContainer.appendChild(particle);
 }
