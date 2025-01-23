@@ -187,20 +187,6 @@ function populateEducation(data) {
   `;
 }
 
-function generatePDF() {
-  const element = document.querySelector(".container");
-  html2canvas(element).then((canvas) => {
-    const imgData = canvas.toDataURL("image/png");
-    const pdf = new jspdf.jsPDF();
-    const imgProps = pdf.getImageProperties(imgData);
-    const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-
-    pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
-    pdf.save("faycal-rafa-cv.pdf");
-  });
-}
-
 function populateSkills(data) {
   const skillsSection = document.querySelector("#skills-section");
   skillsSection.innerHTML = `
@@ -244,10 +230,204 @@ function init() {
     populateEducation(data);
     populateSkills(data);
 
-    document
-      .querySelector(".download-btn")
-      .addEventListener("click", generatePDF);
+    document.querySelector(".download-btn").addEventListener("click", () => {
+      const data = loadCVData();
+      generateCV(data);
+    });
   });
 }
+function generateCV(cvData) {
+  const htmlContent = `
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${cvData.profile.name} - Backend Developer</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+      @page {
+          size: A4;
+          margin: 0;
+      }
 
+      body {
+          margin: 0;
+          padding: 2cm;
+          font-family: 'Calibri', sans-serif;
+          color: #333;
+          line-height: 1.6;
+      }
+
+      .container {
+          display: flex;
+          min-height: 29.7cm;
+      }
+
+      .sidebar {
+          width: 30%;
+          background-color: #f8f9fa;
+          padding: 2rem;
+      }
+
+      .main-content {
+          width: 70%;
+          padding: 2rem;
+      }
+
+      h1 {
+          font-size: 2.2rem;
+          margin-bottom: 0.5rem;
+          color: #2c3e50;
+      }
+
+      h2 {
+          color: #2c3e50;
+          border-bottom: 2px solid #3498db;
+          padding-bottom: 0.3rem;
+          font-size: 1.4rem;
+          margin-top: 1.5rem;
+      }
+
+      .social-links {
+          margin: 1rem 0;
+      }
+
+      .social-links a {
+          color: #3498db;
+          margin-right: 1rem;
+          font-size: 1.2rem;
+      }
+
+      .skills {
+          list-style: none;
+          padding-left: 0;
+          columns: 2;
+      }
+
+      .skills li {
+          margin-bottom: 0.5rem;
+      }
+
+      .experience-item {
+          margin-bottom: 1.5rem;
+      }
+
+      .company {
+          font-weight: bold;
+          color: #2c3e50;
+      }
+
+      .position {
+          color: #3498db;
+          margin: 0.3rem 0;
+      }
+
+      .duration {
+          color: #7f8c8d;
+          font-size: 0.9rem;
+      }
+
+      .description {
+          margin: 0.5rem 0;
+          font-size: 0.95rem;
+      }
+
+      .languages {
+          columns: 2;
+          list-style: none;
+          padding-left: 0;
+      }
+
+      .language {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 0.5rem;
+      }
+  </style>
+</head>
+<body>
+  <div class="container">
+      <div class="sidebar">
+          <h1>${cvData.profile.name}</h1>
+          
+          <div class="social-links">
+              ${cvData.profile.socialLinks
+                .map(
+                  (link) =>
+                    `<a href="${link.url}"><i class="${link.icon}"></i></a>`
+                )
+                .join(" ")}
+          </div>
+
+          <h2>Technical Skills</h2>
+          <ul class="skills">
+              ${cvData.about.skills
+                .slice(0, 10)
+                .map((skill) => `<li>${skill}</li>`)
+                .join("")}
+          </ul>
+
+          <h2>Languages</h2>
+          <ul class="languages">
+              ${cvData.languages
+                .map(
+                  (lang) => `
+                  <li class="language">
+                      <span>${lang.name}</span>
+                      <span>${lang.proficiency}</span>
+                  </li>`
+                )
+                .join("")}
+          </ul>
+      </div>
+
+      <div class="main-content">
+          <h2>Professional Experience</h2>
+          <div class="experience">
+              ${cvData.experience
+                .map(
+                  (exp) => `
+                  <div class="experience-item">
+                      <div class="company">${exp.company}</div>
+                      <div class="position">${exp.position}</div>
+                      <div class="duration">${exp.duration}</div>
+                      <div class="description">${exp.description}</div>
+                  </div>`
+                )
+                .join("")}
+          </div>
+
+          <h2>Education</h2>
+          <div class="education">
+              <div class="description">
+                  ${cvData.education.description}
+              </div>
+              <div style="margin-top: 1rem;">
+                  <strong>Key Readings:</strong> ${cvData.education.keyReadings.join(
+                    ", "
+                  )}
+              </div>
+          </div>
+
+          <h2>Technical Expertise</h2>
+          <ul class="skills">
+              ${cvData.skills.technical
+                .map((skill) => `<li>${skill}</li>`)
+                .join("")}
+          </ul>
+      </div>
+  </div>
+</body>
+</html>`;
+
+  // Open in new window and print
+  const printWindow = window.open("", "_blank");
+  printWindow.document.write(htmlContent);
+  printWindow.document.close();
+  printWindow.onload = function () {
+    printWindow.focus();
+    printWindow.print();
+  };
+}
 init();

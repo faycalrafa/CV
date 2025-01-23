@@ -86,7 +86,7 @@ body {
   margin-bottom: 2rem;
   transition: transform 0.3s;
   position: relative;
-  z-index: 999;
+  z-index: 99;
 }
 
 .section-card:hover {
@@ -127,13 +127,40 @@ h2 {
 .download-btn {
   background: linear-gradient(45deg, var(--primary), var(--accent));
   border: none;
-  padding: 0.8rem 2rem;
+  padding: 0.8rem 1rem;
   font-weight: bold;
   position: fixed;
   bottom: 2rem;
   right: 2rem;
   border-radius: 30px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  z-index: 100;
+}
+.whatsapp-btn {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #25d366;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  text-decoration: none;
+  color: white;
+}
+
+.whatsapp-btn:hover {
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+.whatsapp-btn i {
+  font-size: 1.5rem;
 }
 
 /* Language Skills */
