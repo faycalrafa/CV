@@ -1,101 +1,59 @@
 // Particle generation and animation
-const particleTypes = ["circle", "bracket", "triangle"];
-const particleCount = 30;
+const particleCount = 100; // Increased number of particles
+const minSpeed = 5; // Minimum animation duration
+const maxSpeed = 15; // Maximum animation duration
+const minSize = 12; // Minimum font size
+const maxSize = 24; // Maximum font size
+
+function getRandomNumber() {
+  return Math.floor(Math.random() * 10); // Random digit 0-9
+}
 
 function createParticle() {
   const particle = document.createElement("div");
-  particle.className = `particle ${
-    particleTypes[Math.floor(Math.random() * particleTypes.length)]
-  }`;
+  particle.className = "matrix-particle";
 
   // Random position
   particle.style.left = `${Math.random() * 100}vw`;
   particle.style.top = `${Math.random() * 100}vh`;
 
   // Random size and animation duration
-  const size = Math.random() * 30 + 10;
-  particle.style.width = `${size}px`;
-  particle.style.height = `${size}px`;
-  particle.style.animationDuration = `${Math.random() * 10 + 5}s`;
+  const size = Math.random() * (maxSize - minSize) + minSize;
+  particle.style.fontSize = `${size}px`;
+  particle.style.animationDuration = `${
+    Math.random() * (maxSpeed - minSpeed) + minSpeed
+  }s`;
 
   // Random delay
   particle.style.animationDelay = `-${Math.random() * 10}s`;
+
+  // Create number cycling effect
+  let currentNumber = getRandomNumber();
+  particle.textContent = currentNumber;
+
+  // Change number at random intervals
+  setInterval(() => {
+    particle.textContent = getRandomNumber();
+  }, Math.random() * 500 + 100);
 
   return particle;
 }
 
 // Create particle container
 const particleContainer = document.createElement("div");
-particleContainer.style.position = "absolute";
+particleContainer.style.position = "fixed";
 particleContainer.style.top = "0";
 particleContainer.style.left = "0";
-particleContainer.style.width = "100%";
-particleContainer.style.height = document.documentElement.scrollHeight + "px";
+particleContainer.style.width = "100vw";
+particleContainer.style.height = "100vh";
 particleContainer.style.pointerEvents = "none";
 document.body.appendChild(particleContainer);
-
-// Update container height on resize or content changes
-const resizeObserver = new ResizeObserver((entries) => {
-  particleContainer.style.height = document.documentElement.scrollHeight + "px";
-});
-resizeObserver.observe(document.body);
 
 // Create initial particles
 for (let i = 0; i < particleCount; i++) {
   const particle = createParticle();
   particleContainer.appendChild(particle);
 }
-
-// Scroll-based particle generation
-let lastScrollY = window.scrollY;
-let lastParticleTime = 0;
-const scrollThreshold = 100; // pixels
-const viewportHeight = window.innerHeight;
-const maxParticles = 50; // Maximum particles on screen
-const particleCooldown = 20; // Milliseconds between particle generation
-
-window.addEventListener("scroll", () => {
-  const scrollY = window.scrollY;
-  const scrollDelta = scrollY - lastScrollY;
-  const currentParticles =
-    particleContainer.querySelectorAll(".particle").length;
-
-  // Only generate particles when:
-  // 1. Near viewport edges (top or bottom)
-  // 2. Below max particle count
-  // 3. Cooldown period has passed
-  const nearBottom =
-    scrollY + viewportHeight >=
-    document.documentElement.scrollHeight - scrollThreshold;
-  const nearTop = scrollY <= scrollThreshold;
-
-  if (
-    (nearBottom || nearTop) &&
-    currentParticles < maxParticles &&
-    Date.now() - lastParticleTime > particleCooldown
-  ) {
-    const newParticle = createParticle();
-    // Position new particle in the visible area
-    newParticle.style.top = `${
-      scrollY + viewportHeight - Math.random() * 200
-    }px`;
-    particleContainer.appendChild(newParticle);
-    lastParticleTime = Date.now();
-  }
-
-  lastScrollY = scrollY;
-});
-
-// Cleanup particles that move out of view
-setInterval(() => {
-  const particles = particleContainer.querySelectorAll(".particle");
-  particles.forEach((particle) => {
-    const rect = particle.getBoundingClientRect();
-    if (rect.bottom < 0 || rect.top > viewportHeight) {
-      particle.remove();
-    }
-  });
-}, 5000);
 
 // Mouse following light trail
 const trail = document.createElement("div");

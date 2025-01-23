@@ -108,6 +108,20 @@ const cvData = {
       "Software Architecture & Design",
     ],
   },
+  languages: [
+    {
+      name: "French",
+      proficiency: "Proficient",
+    },
+    {
+      name: "Arabic",
+      proficiency: "Proficient",
+    },
+    {
+      name: "English",
+      proficiency: "Highly Proficient",
+    },
+  ],
 };
 
 function loadCVData() {
