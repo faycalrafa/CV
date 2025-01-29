@@ -1,7 +1,7 @@
 // Particle generation and animation
+
 function getParticleCount() {
   const width = window.innerWidth;
-  if (width < 768) return 30; // Phone
   if (width < 1024) return 60; // Tablet
   return 100; // Desktop
 }

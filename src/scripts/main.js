@@ -26,7 +26,7 @@ const cvData = {
   },
   about: {
     description:
-      "Full Stack Developer with 6+ years of experience in web and mobile development. Passionate about creating efficient and scalable solutions.",
+      "Accomplished software engineer with 6+ years of expertise in delivering robust web/mobile solutions. Specialized in architecting high-performance systems and leading cross-functional technical teams.",
     skills: [
       "Dart",
       "JavaScript",
@@ -59,14 +59,7 @@ const cvData = {
       position: "Tech Lead",
       duration: "2024 - Present",
       description:
-        "Leading a team of 3 developers in building a stock trading platform for a fintech solutions company.",
-    },
-    {
-      company: "Piassa",
-      position: "Full Stack Developer",
-      duration: "2024 - mid 2024",
-      description:
-        "1. Maintaining current software systems <br>2. Conducting R&D activities <br>3. Developing cart parts management software <br>4. Continuously improving and optimizing existing applications",
+        "Orchestrate development of a real-time stock trading platform for fintech clients <br>Mentor and manage team of developers through full SDLC <br>Implement microservices architecture improving system scalability",
     },
     {
       company: "InstaClean",
@@ -78,7 +71,7 @@ const cvData = {
     {
       company: "KabriAuto",
       position: "Full Stack Developer",
-      duration: "2023 - 2024 (Part-time)",
+      duration: "q1 2024 (Part-time)",
       description:
         "Contributed to the development of an e-commerce platform for car parts to be launched in Dubai.",
     },
