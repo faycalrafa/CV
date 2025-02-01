@@ -299,10 +299,7 @@ function generateCV(cvData) {
       .page-content {
           padding: 1cm;
           /* Add extra top and bottom spacing to avoid fixed header and footer */
-          padding-top: 2.5cm;
-          padding-bottom: 2.5cm;
           min-height: 20cm; /* A4 height minus header/footer & extra padding */
-          page-break-after: always;
 
       }
 
@@ -402,7 +399,7 @@ function generateCV(cvData) {
 <body>
   <!-- Header that will appear on every printed page -->
   <header>
-      <h1 style="margin: 0; font-size: 1.8rem;">${cvData.profile.name} - Backend Developer</h1>
+      <h1 style="margin: 0; font-size: 1.8rem;">${cvData.profile.name} - Tech Lead</h1>
   </header>
 
   <!-- Footer that will appear on every printed page -->
@@ -458,7 +455,7 @@ function generateCV(cvData) {
             <div class="experience">
             ${cvData.experience
               .map((exp, index) => `
-              ${(index + 1) % 5 === 0 ? '<div style="height: 6cm;"></div>' : ''}
+              ${(index + 1) % 5 === 0 ? '<div style="height: 7cm;"></div>' : ''}
                 <div class="experience-item" >
                     <div class="company">${exp.company}</div>
                     <div class="position">${exp.position}</div>
