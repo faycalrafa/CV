@@ -243,22 +243,59 @@ function generateCV(cvData) {
   <title>${cvData.profile.name} - Backend Developer</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
+      /* Define page margins so that the header and footer don't overlap content */
       @page {
           size: A4;
-          margin: 0;
+          margin: 3cm 2cm; /* Top and bottom margins of 3cm, sides of 2cm */
       }
 
       body {
           margin: 0;
-          padding: 2cm;
+          /* Remove body padding so that our container spacing is used exclusively */
           font-family: 'Calibri', sans-serif;
           color: #333;
           line-height: 1.6;
       }
 
+      /* Fixed header to appear on every printed page */
+      header {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 2cm;
+          background-color: #f8f9fa;
+          border-bottom: 1px solid #3498db;
+          padding: 0.5rem;
+          text-align: center;
+          z-index: 1000;
+      }
+
+      /* Fixed footer to appear on every printed page */
+      footer {
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          height: 2cm;
+          background-color: #f8f9fa;
+          border-top: 1px solid #3498db;
+          padding: 0.5rem;
+          text-align: center;
+          z-index: 1000;
+          font-size: 0.9rem;
+      }
+
+      /* The main content container uses margins to ensure it does not overlap with the header and footer */
+      .page-content {
+          margin-top: 3.5cm;  /* slightly more than header height */
+          margin-bottom: 3.5cm;  /* slightly more than footer height */
+      }
+
       .container {
           display: flex;
-          min-height: 29.7cm;
+          /* Adjust min-height if needed; this calculation ensures content fills the space */
+          min-height: calc(29.7cm - 7cm); /* A4 height minus the extra top and bottom margins */
       }
 
       .sidebar {
@@ -344,75 +381,87 @@ function generateCV(cvData) {
   </style>
 </head>
 <body>
-  <div class="container">
-      <div class="sidebar">
-          <h1>${cvData.profile.name}</h1>
-          
-          <div class="social-links">
-              ${cvData.profile.socialLinks
-                .map(
-                  (link) =>
-                    `<a href="${link.url}"><i class="${link.icon}"></i></a>`
-                )
-                .join(" ")}
-          </div>
+  <!-- Header that will appear on every printed page -->
+  <header>
+      <h1 style="margin: 0; font-size: 1.8rem;">${cvData.profile.name} - Backend Developer</h1>
+  </header>
 
-          <h2>Skills</h2>
-          <ul class="skills">
-              ${cvData.about.skills
-                .map((skill) => `<li>${skill}</li>`)
-                .join("")}
-          </ul>
+  <!-- Footer that will appear on every printed page -->
+  <footer>
+      <span>Contact: ${cvData.profile.email || 'email@example.com'}</span>
+      <span style="margin-left: 1rem;">&copy; ${new Date().getFullYear()} ${cvData.profile.name}</span>
+  </footer>
 
-          <h2>Languages</h2>
-          <ul class="languages">
-              ${cvData.languages
-                .map(
-                  (lang) => `
-                  <li class="language">
-                      <span>${lang.name}</span>
-                      <span>${lang.proficiency}</span>
-                  </li>`
-                )
-                .join("")}
-          </ul>
-      </div>
+  <!-- Main content container with sufficient top and bottom margins -->
+  <div class="page-content">
+    <div class="container">
+        <div class="sidebar">
+            <h1>${cvData.profile.name}</h1>
+            
+            <div class="social-links">
+                ${cvData.profile.socialLinks
+                  .map(
+                    (link) =>
+                      `<a href="${link.url}"><i class="${link.icon}"></i></a>`
+                  )
+                  .join(" ")}
+            </div>
 
-      <div class="main-content">
-          <h2>Professional Experience</h2>
-          <div class="experience">
-              ${cvData.experience
-                .map(
-                  (exp) => `
-                  <div class="experience-item">
-                      <div class="company">${exp.company}</div>
-                      <div class="position">${exp.position}</div>
-                      <div class="duration">${exp.duration}</div>
-                      <div class="description">${exp.description}</div>
-                  </div>`
-                )
-                .join("")}
-          </div>
+            <h2>Skills</h2>
+            <ul class="skills">
+                ${cvData.about.skills
+                  .map((skill) => `<li>${skill}</li>`)
+                  .join("")}
+            </ul>
 
-          <h2>Education</h2>
-          <div class="education">
-              <div class="description">
-                  ${cvData.education.description}
-              </div>
-              <div style="margin-top: 1rem;">
-                  <strong>Key Readings:</strong> ${cvData.education.keyReadings.join(
-                    ", "
-                  )}
-              </div>
-          </div>
+            <h2>Languages</h2>
+            <ul class="languages">
+                ${cvData.languages
+                  .map(
+                    (lang) => `
+                    <li class="language">
+                        <span>${lang.name}</span>
+                        <span>${lang.proficiency}</span>
+                    </li>`
+                  )
+                  .join("")}
+            </ul>
+        </div>
 
-          <h2>Technical Expertise</h2>
-          <ul class="skills">
-              ${cvData.skills.technical
-                .map((skill) => `<li>${skill}</li>`)
-                .join("")}
-          </ul>
-      </div>
+        <div class="main-content">
+            <h2>Professional Experience</h2>
+            <div class="experience">
+                ${cvData.experience
+                  .map(
+                    (exp) => `
+                    <div class="experience-item">
+                        <div class="company">${exp.company}</div>
+                        <div class="position">${exp.position}</div>
+                        <div class="duration">${exp.duration}</div>
+                        <div class="description">${exp.description}</div>
+                    </div>`
+                  )
+                  .join("")}
+            </div>
+
+            <h2>Education</h2>
+            <div class="education">
+                <div class="description">
+                    ${cvData.education.description}
+                </div>
+                <div style="margin-top: 1rem;">
+                    <strong>Key Readings:</strong> ${cvData.education.keyReadings.join(", ")}
+                </div>
+            </div>
+
+            <h2>Technical Expertise</h2>
+            <ul class="skills">
+                ${cvData.skills.technical
+                  .map((skill) => `<li>${skill}</li>`)
+                  .join("")}
+            </ul>
+        </div>
+    </div>
   </div>
 </body>
 </html>`;
@@ -426,4 +475,5 @@ function generateCV(cvData) {
     printWindow.print();
   };
 }
+
 init();
