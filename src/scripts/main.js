@@ -243,15 +243,15 @@ function generateCV(cvData) {
   <title>${cvData.profile.name} - Backend Developer</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
-      /* Define page margins so that the header and footer don't overlap content */
+      /* Set the printed page to A4 size with no default margin */
       @page {
           size: A4;
-          margin: 3cm 2cm; /* Top and bottom margins of 3cm, sides of 2cm */
+          margin: 0;
       }
 
       body {
           margin: 0;
-          /* Remove body padding so that our container spacing is used exclusively */
+          /* Remove extra body padding and use a dedicated content container */
           font-family: 'Calibri', sans-serif;
           color: #333;
           line-height: 1.6;
@@ -286,16 +286,18 @@ function generateCV(cvData) {
           font-size: 0.9rem;
       }
 
-      /* The main content container uses margins to ensure it does not overlap with the header and footer */
+      /* Wrapper for the page content with extra spacing for header and footer */
       .page-content {
-          margin-top: 3.5cm;  /* slightly more than header height */
-          margin-bottom: 3.5cm;  /* slightly more than footer height */
+          padding: 2cm;
+          /* Add extra top and bottom spacing to avoid fixed header and footer */
+          padding-top: 2.5cm;
+          padding-bottom: 2.5cm;
       }
 
       .container {
           display: flex;
-          /* Adjust min-height if needed; this calculation ensures content fills the space */
-          min-height: calc(29.7cm - 7cm); /* A4 height minus the extra top and bottom margins */
+          /* This container now fills the remaining space in the page-content */
+          min-height: calc(29.7cm - 5cm); /* A4 height minus header/footer & extra padding */
       }
 
       .sidebar {
@@ -392,7 +394,7 @@ function generateCV(cvData) {
       <span style="margin-left: 1rem;">&copy; ${new Date().getFullYear()} ${cvData.profile.name}</span>
   </footer>
 
-  <!-- Main content container with sufficient top and bottom margins -->
+  <!-- Main content wrapper to provide spacing away from header and footer -->
   <div class="page-content">
     <div class="container">
         <div class="sidebar">
@@ -450,7 +452,9 @@ function generateCV(cvData) {
                     ${cvData.education.description}
                 </div>
                 <div style="margin-top: 1rem;">
-                    <strong>Key Readings:</strong> ${cvData.education.keyReadings.join(", ")}
+                    <strong>Key Readings:</strong> ${cvData.education.keyReadings.join(
+                      ", "
+                    )}
                 </div>
             </div>
 
