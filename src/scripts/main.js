@@ -5,22 +5,31 @@ const cvData = {
       {
         icon: "fab fa-linkedin",
         url: "https://www.linkedin.com/in/faycal-rafa-89a366249",
+        name: "/faycal-rafa-89a366249"
       },
       {
         icon: "fab fa-github",
         url: "https://github.com/faycalrafa",
+        name: "/faycalrafa"
+
       },
       {
         icon: "fab fa-facebook",
         url: "https://web.facebook.com/faycalrafa96",
+        name: "/faycalrafa96"
+
       },
       {
         icon: "fas fa-envelope",
         url: "mailto:rafafaycal@gmail.com",
+        name: "rafafaycal@gmail.com"
+
       },
       {
         icon: "fas fa-phone",
         url: "tel:+213540980238",
+        name: "+213540980238"
+
       },
     ],
   },
@@ -47,8 +56,8 @@ const cvData = {
       "Tailwind CSS",
       "Git",
       "WebSocket",
-      "Linux Bash/shell",
-      "Windows CMD/Powershell",
+      "Bash/shell",
+      "Powershell",
       "CI/CD",
       "Software Architecture & Design",
     ],
@@ -263,7 +272,7 @@ function generateCV(cvData) {
           top: 0;
           left: 0;
           right: 0;
-          height: 2cm;
+          height: 1cm;
           background-color: #f8f9fa;
           border-bottom: 1px solid #3498db;
           padding: 0.5rem;
@@ -277,7 +286,7 @@ function generateCV(cvData) {
           bottom: 0;
           left: 0;
           right: 0;
-          height: 2cm;
+          height: 1cm;
           background-color: #f8f9fa;
           border-top: 1px solid #3498db;
           padding: 0.5rem;
@@ -288,16 +297,18 @@ function generateCV(cvData) {
 
       /* Wrapper for the page content with extra spacing for header and footer */
       .page-content {
-          padding: 2cm;
+          padding: 1cm;
           /* Add extra top and bottom spacing to avoid fixed header and footer */
           padding-top: 2.5cm;
           padding-bottom: 2.5cm;
+          min-height: 20cm; /* A4 height minus header/footer & extra padding */
+          page-break-after: always;
+
       }
 
       .container {
           display: flex;
           /* This container now fills the remaining space in the page-content */
-          min-height: calc(29.7cm - 5cm); /* A4 height minus header/footer & extra padding */
       }
 
       .sidebar {
@@ -338,9 +349,15 @@ function generateCV(cvData) {
       .skills {
           list-style: none;
           padding-left: 0;
-          columns: 1;
+          columns: 2;
+          list-style-type: disc;
       }
-
+      .tech-skills {
+          list-style: none;
+        list-style-type: disc;
+          padding-left: 0;
+          columns: 1;
+            }
       .skills li {
           margin-bottom: 0.5rem;
       }
@@ -390,7 +407,7 @@ function generateCV(cvData) {
 
   <!-- Footer that will appear on every printed page -->
   <footer>
-      <span>Contact: ${cvData.profile.email || 'email@example.com'}</span>
+      <span>Contact: ${cvData.profile.email || 'rafafaycal@gmail.com'}</span>
       <span style="margin-left: 1rem;">&copy; ${new Date().getFullYear()} ${cvData.profile.name}</span>
   </footer>
 
@@ -404,7 +421,13 @@ function generateCV(cvData) {
                 ${cvData.profile.socialLinks
                   .map(
                     (link) =>
-                      `<a href="${link.url}"><i class="${link.icon}"></i></a>`
+                      `
+                       <a href="${link.url}"style="text-decoration: none;">
+                       <i class="${link.icon}"></i> 
+                       <span style="style:unset; color: black;font-size: 14px;font-family: bold;">${link.name}</span>
+                       </a><br>
+                       
+                      `
                   )
                   .join(" ")}
             </div>
@@ -433,17 +456,18 @@ function generateCV(cvData) {
         <div class="main-content">
             <h2>Professional Experience</h2>
             <div class="experience">
-                ${cvData.experience
-                  .map(
-                    (exp) => `
-                    <div class="experience-item">
-                        <div class="company">${exp.company}</div>
-                        <div class="position">${exp.position}</div>
-                        <div class="duration">${exp.duration}</div>
-                        <div class="description">${exp.description}</div>
-                    </div>`
-                  )
-                  .join("")}
+            ${cvData.experience
+              .map((exp, index) => `
+              ${(index + 1) % 5 === 0 ? '<div style="height: 6cm;"></div>' : ''}
+                <div class="experience-item" >
+                    <div class="company">${exp.company}</div>
+                    <div class="position">${exp.position}</div>
+                    <div class="duration">${exp.duration}</div>
+                    <div class="description">${exp.description}</div>
+                </div>
+              `)
+              .join("")}
+            
             </div>
 
             <h2>Education</h2>
@@ -459,7 +483,7 @@ function generateCV(cvData) {
             </div>
 
             <h2>Technical Expertise</h2>
-            <ul class="skills">
+            <ul class="tech-skills">
                 ${cvData.skills.technical
                   .map((skill) => `<li>${skill}</li>`)
                   .join("")}
@@ -474,10 +498,12 @@ function generateCV(cvData) {
   const printWindow = window.open("", "_blank");
   printWindow.document.write(htmlContent);
   printWindow.document.close();
-  printWindow.onload = function () {
-    printWindow.focus();
-    printWindow.print();
-  };
+  printWindow.addEventListener("load", function () {
+    setTimeout(() => {
+      printWindow.focus();
+      printWindow.print();
+    }, 1000);
+  });
 }
 
 init();
