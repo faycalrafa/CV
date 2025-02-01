@@ -116,7 +116,7 @@ const cvData = {
     },
     {
       name: "English",
-      proficiency: "Highly Proficient",
+      proficiency: "Proficient",
     },
   ],
 };
@@ -187,7 +187,7 @@ function populateEducation(data) {
 function populateSkills(data) {
   const skillsSection = document.querySelector("#skills-section");
   skillsSection.innerHTML = `
-    <h2><i class="fas fa-tools me-2"></i>Skills</h2>
+    <h2><i class="fas fa-tools me-2"></i>Technical Expertise</h2>
     <ul class="skills-list">
       ${data.skills.technical
         .map(
@@ -299,7 +299,7 @@ function generateCV(cvData) {
       .skills {
           list-style: none;
           padding-left: 0;
-          columns: 2;
+          columns: 1;
       }
 
       .skills li {
@@ -331,7 +331,7 @@ function generateCV(cvData) {
       }
 
       .languages {
-          columns: 2;
+          columns: 1;
           list-style: none;
           padding-left: 0;
       }
@@ -357,10 +357,9 @@ function generateCV(cvData) {
                 .join(" ")}
           </div>
 
-          <h2>Technical Skills</h2>
+          <h2>Skills</h2>
           <ul class="skills">
               ${cvData.about.skills
-                .slice(0, 10)
                 .map((skill) => `<li>${skill}</li>`)
                 .join("")}
           </ul>
